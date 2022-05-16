@@ -1,8 +1,7 @@
 package com.example.demo.api;
 
-import com.example.demo.entities.OrderedProduct;
-import com.example.demo.entities.Product;
-import com.example.demo.repositories.OrderedProductRepository;
+import com.example.demo.entities.Item;
+import com.example.demo.components.ItemService;
 import com.example.demo.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,23 +19,18 @@ public class CustomerController
   private ProductRepository productRepository;
 
   @Autowired
-  private OrderedProductRepository orderedProductRepository;
+  private ItemService itemService;
 
   @GetMapping("/getAllProducts")
-  public List<Product> getAllProducts(@RequestParam int cafeId)
+  public List<Item> getAllProducts(@RequestParam int cafeId)
   {
-    return productRepository.getByCafeId(cafeId);
+    return itemService.getAllItems(cafeId);
   }
 
-  @GetMapping("/getProductsByType")
-  public List<Product> getAllProductsByType(@RequestParam int cafeId, @RequestParam String type)
+  @GetMapping("/getProductsByCategory")
+  public List<Item> getAllProductsByCategory(@RequestParam int cafeId, @RequestParam String category)
   {
-    return productRepository.getByCafeIdAndType(cafeId, type);
+    return productRepository.getByBusinessIdAndCategory(cafeId, category);
   }
 
-  @GetMapping("/getReceipt")
-  public List<OrderedProduct> getReceipt(@RequestParam int cafeId, @RequestParam int tableId)
-  {
-    return orderedProductRepository.getByCafeIdAndTableId(cafeId, tableId);
-  }
 }

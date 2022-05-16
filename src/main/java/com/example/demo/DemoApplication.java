@@ -19,11 +19,11 @@ public class DemoApplication
     BCryptPasswordEncoder bCryptPasswordEncoder = run.getBean(BCryptPasswordEncoder.class);
     UserRepository userRepository = run.getBean(UserRepository.class);
 
-//    User user = new User();
-//    user.setUsername("mod");
-//    user.setPassword(bCryptPasswordEncoder.encode("pass"));
-//    user.setEnabled(true);
-//    user.setRole(Role.MOD);
-//    userRepository.save(user);
+   /*User user = new User();
+   user.setUsername("cafe1");
+   user.setPassword(bCryptPasswordEncoder.encode("cafe1"));
+   user.setEnabled(true);
+   user.setRole(Role.ADMIN);
+   userRepository.save(user);*/
   }
 }

@@ -1,6 +1,6 @@
 package com.example.demo.config;
 
-import com.example.demo.model.SocketSessionModel;
+import com.example.demo.components.SocketSessionService;
 import com.example.demo.vo.SocketCommand;
 import com.example.demo.vo.SocketMessageVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class WebSocketRequestHandler extends BinaryWebSocketHandler
   protected ApplicationEventPublisher dispatcher;
 
   @Autowired
-  private SocketSessionModel socketSessionModel;
+  private SocketSessionService socketSessionService;
 
   @Override
   public void afterConnectionEstablished(WebSocketSession session)
@@ -34,12 +34,12 @@ public class WebSocketRequestHandler extends BinaryWebSocketHandler
     System.out.println(session.getId());
     if (socketMessageVo.getCommand().equals(SocketCommand.OPENCAFE))
     {
-      socketSessionModel.addCafe(socketMessageVo.getCafeId(), session);
+      socketSessionService.addCafe(socketMessageVo.getCafeId(), session);
     } else if (socketMessageVo.getCommand().equals(SocketCommand.CLOSECAFE))
     {
-      socketSessionModel.removeCafe(socketMessageVo.getCafeId());
+      socketSessionService.removeCafe(socketMessageVo.getCafeId());
     }else if(socketMessageVo.getCommand().equals(SocketCommand.MAKEORDER)){
-      socketSessionModel.getCafeById(socketMessageVo.getCafeId()).sendMessage(new TextMessage("tableId:"+socketMessageVo.getTableId()));
+      socketSessionService.getCafeById(socketMessageVo.getCafeId()).sendMessage(new TextMessage("tableId:"+socketMessageVo.getTableId()));
 
     }
   }
@@ -47,6 +47,6 @@ public class WebSocketRequestHandler extends BinaryWebSocketHandler
   @Override
   public void afterConnectionClosed(WebSocketSession session, CloseStatus status)
   {
-    socketSessionModel.removeCafe(session);
+    socketSessionService.removeCafe(session);
   }
 }

@@ -1,13 +1,13 @@
 package com.example.demo.repositories;
 
-import com.example.demo.entities.Product;
+import com.example.demo.entities.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Product, Integer>
+public interface ProductRepository extends JpaRepository<Item, Integer>
 {
-  List<Product> getByCafeId(int cafeId);
+  List<Item> getByBusinessId(int cafeId);
 
-  List<Product> getByCafeIdAndType(int cafeId, String type);
+  List<Item> getByBusinessIdAndCategory(int cafeId, String category);
 }

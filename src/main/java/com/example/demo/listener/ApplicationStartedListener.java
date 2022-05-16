@@ -1,6 +1,6 @@
 package com.example.demo.listener;
 
-import com.example.demo.model.ReloadModel;
+import com.example.demo.components.ReloadModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
