@@ -1,9 +1,11 @@
 package com.example.demo.components;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -37,5 +39,9 @@ public class SocketSessionService
   public WebSocketSession getCafeById(int cafeId)
   {
     return mapByCafeId.get(cafeId);
+  }
+
+  public void sendSocketMessage(WebSocketSession webSocketSession) throws IOException {
+    webSocketSession.sendMessage(new TextMessage("asdasd"));
   }
 }

@@ -1,12 +1,18 @@
 package com.example.demo.components;
 
 import com.example.demo.api.vo.LoginResponseVo;
+import com.example.demo.entities.Waiter;
+import com.example.demo.security.Role;
 import com.example.demo.security.User;
 import com.example.demo.security.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @Component
 public class AuthService {
@@ -17,7 +23,10 @@ public class AuthService {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    private TokenModel tokenModel;
+    private WaiterService waiterService;
+
+    public Map<String, User> tokenUserMap = new HashMap<>();
+
     public String login(String username,String password) throws Exception {
         User user = userRepository.getUserByUsername(username);
 
@@ -28,7 +37,13 @@ public class AuthService {
 
         if (passwordEncoder.matches(password, user.getPassword()))
         {
-            String token = tokenModel.loginUser(user);
+            String token =  UUID.randomUUID().toString();
+
+            tokenUserMap.put(token,user);
+
+            if(user.getRole().equals(Role.WAITER)){
+                waiterService.loginWaiter(user.getBusinessId(),user.getId());
+            }
 
             ObjectMapper objectMapper = new ObjectMapper();
 

@@ -16,7 +16,7 @@ public class BusinessService extends ReloadModel {
     @Autowired
     private TableRepository tableRepository;
 
-    //boolean ---> isAvailable
+    //boolean ---> isOccupied
     Map<Integer,Map<Table, Boolean>> tableMap;
 
     @PostConstruct

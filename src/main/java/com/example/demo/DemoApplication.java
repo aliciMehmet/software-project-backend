@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import com.example.demo.entities.Item;
+import com.example.demo.repositories.ItemRepository;
 import com.example.demo.security.Role;
 import com.example.demo.security.User;
 import com.example.demo.security.UserRepository;
@@ -19,11 +21,61 @@ public class DemoApplication
     BCryptPasswordEncoder bCryptPasswordEncoder = run.getBean(BCryptPasswordEncoder.class);
     UserRepository userRepository = run.getBean(UserRepository.class);
 
+    ItemRepository itemRepository = run.getBean(ItemRepository.class);
+
    /*User user = new User();
-   user.setUsername("cafe1");
-   user.setPassword(bCryptPasswordEncoder.encode("cafe1"));
+   user.setUsername("admin");
+   user.setPassword(bCryptPasswordEncoder.encode("pass"));
    user.setEnabled(true);
    user.setRole(Role.ADMIN);
-   userRepository.save(user);*/
+   userRepository.save(user);
+
+       user = new User();
+      user.setUsername("waiter");
+      user.setPassword(bCryptPasswordEncoder.encode("pass"));
+      user.setEnabled(true);
+      user.setRole(Role.WAITER);
+      userRepository.save(user);
+
+       user = new User();
+      user.setUsername("kitchen");
+      user.setPassword(bCryptPasswordEncoder.encode("pass"));
+      user.setEnabled(true);
+      user.setRole(Role.KITCHEN);
+      userRepository.save(user);*/
+
+   /* Item item = new Item();
+    item.setBusinessId(1);
+    item.setName("Hamburger");
+    item.setCategory("Food");
+    item.setPrice(40);
+    item.setStock(100);
+    item.setScore(5);
+
+    itemRepository.save(item);
+
+
+    item = new Item();
+    item.setBusinessId(1);
+    item.setName("Hookah");
+    item.setCategory("Tobacco");
+    item.setPrice(12);
+    item.setStock(25);
+    item.setScore(5);
+
+    itemRepository.save(item);
+
+    item = new Item();
+    item.setBusinessId(1);
+    item.setName("cips");
+    item.setCategory("packet");
+    item.setPrice(14);
+    item.setStock(40);
+    item.setScore(5);
+
+    itemRepository.save(item);*/
+
+
+
   }
 }

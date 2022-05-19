@@ -1,7 +1,7 @@
 package com.example.demo.components;
 
 import com.example.demo.entities.Item;
-import com.example.demo.repositories.ProductRepository;
+import com.example.demo.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
+//TODO: addItem ve updateItem metodları yazılmalı
 public class ItemService extends ReloadModel
 {
   //key: cafeId, value: products of Cafe
@@ -19,7 +20,7 @@ public class ItemService extends ReloadModel
   private Map<Integer,Map<String, List<Item>>> mapByCategory;
 
   @Autowired
-  private ProductRepository productRepository;
+  private ItemRepository itemRepository;
 
   @PostConstruct
   public void started()
@@ -29,6 +30,9 @@ public class ItemService extends ReloadModel
   }
 
   public List<Item> getAllItems(int businessId){
+    if(!cafeMap.containsKey(businessId)){
+      return new ArrayList<>();
+    }
     return cafeMap.get(businessId);
   }
 
@@ -39,7 +43,7 @@ public class ItemService extends ReloadModel
   @Override
   public void reload()
   {
-    List<Item> items = productRepository.findAll();
+    List<Item> items = itemRepository.findAll();
 
     for (Item item : items)
     {

@@ -18,11 +18,13 @@ public class User
   @Id
   @Column(name = "user_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private int id;
 
   private String username;
 
   private String password;
+
+  private int businessId;
 
   private boolean enabled;
 

@@ -16,6 +16,8 @@ public class SocketMessageVo
 
   private String command;
 
+  private String token;
+
   private int cafeId;
 
   private int tableId;
