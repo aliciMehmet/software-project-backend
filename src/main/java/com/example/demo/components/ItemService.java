@@ -40,6 +40,33 @@ public class ItemService extends ReloadModel
     return mapByCategory.get(businessId).get(category);
   }
 
+  public void updateItem(Item item){
+    itemRepository.save(item);
+
+    for (Item item1 : cafeMap.get(item.getBusinessId())) {
+      if(item1.getId() == item.getId()){
+        cafeMap.get(item.getBusinessId()).remove(item1);
+        cafeMap.get(item.getBusinessId()).add(item);
+        mapByCategory.get(item.getBusinessId()).get(item.getCategory()).remove(item1);
+        mapByCategory.get(item.getBusinessId()).get(item.getCategory()).add(item);
+
+        break;
+      }
+    }
+  }
+
+  public void deleteItem(Item item){
+    itemRepository.delete(item);
+    for (Item item1 : cafeMap.get(item.getBusinessId())) {
+      if(item1.getId() == item.getId()){
+        cafeMap.get(item.getBusinessId()).remove(item1);
+        mapByCategory.get(item.getBusinessId()).get(item.getCategory()).remove(item1);
+
+        break;
+      }
+    }
+  }
+
   @Override
   public void reload()
   {

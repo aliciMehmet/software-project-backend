@@ -35,7 +35,13 @@ public class adminController
   @PostMapping("/updateItem")
   public void updateItem(@RequestBody Item item)
   {
+    itemService.updateItem(item);
+  }
 
+  @PostMapping("/deleteItem")
+  public void deleteItem(@RequestBody Item item)
+  {
+    itemService.deleteItem(item);
   }
 
   @GetMapping("/getAllProducts")
