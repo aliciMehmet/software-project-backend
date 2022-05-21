@@ -16,8 +16,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ItemService extends ReloadModel
 {
   //key: cafeId, value: products of Cafe
-  private Map<Integer, List<Item>> cafeMap;
-  private Map<Integer,Map<String, List<Item>>> mapByCategory;
+  public Map<Integer, List<Item>> cafeMap;
+  public Map<Integer,Map<String, List<Item>>> mapByCategory;
 
   @Autowired
   private ItemRepository itemRepository;

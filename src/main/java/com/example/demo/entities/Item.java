@@ -5,8 +5,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 
@@ -17,6 +16,7 @@ import java.sql.Timestamp;
 public class Item
 {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
   private int businessId;

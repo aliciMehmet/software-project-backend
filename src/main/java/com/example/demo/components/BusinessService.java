@@ -1,5 +1,6 @@
 package com.example.demo.components;
 
+import com.example.demo.entities.Order;
 import com.example.demo.entities.Table;
 import com.example.demo.repositories.TableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,11 @@ public class BusinessService extends ReloadModel {
     @Autowired
     private TableRepository tableRepository;
 
+    @Autowired
+    private OrderService orderService;
+
     //boolean ---> isOccupied
-    Map<Integer,Map<Table, Boolean>> tableMap;
+    Map<Integer,Map<Integer, Boolean>> tableMap;
 
     @PostConstruct
     public void started()
@@ -32,7 +36,7 @@ public class BusinessService extends ReloadModel {
             {
                 tableMap.put(table.getBusinessId(), new HashMap<>());
             }
-            tableMap.get(table.getBusinessId()).put(table,true);
+            tableMap.get(table.getBusinessId()).put(table.getTableId(),true);
         }
     }
 
@@ -41,12 +45,17 @@ public class BusinessService extends ReloadModel {
         table.setTableId(tableMap.get(businessId).size());
         table.setBusinessId(businessId);
 
-        tableMap.get(businessId).put(table,true);
+        tableMap.get(businessId).put(table.getTableId(),true);
 
         tableRepository.save(table);
     }
 
     public void removeTable(int businessId){
 
+    }
+
+    public void resetTable(int businessId,int tableId){
+        orderService.resetTableOrders(businessId,tableId);
+        tableMap.get(businessId).put(tableId,false);
     }
 }

@@ -23,7 +23,7 @@ public class DemoApplication
 
     ItemRepository itemRepository = run.getBean(ItemRepository.class);
 
-   /*User user = new User();
+  /* User user = new User();
    user.setUsername("admin");
    user.setPassword(bCryptPasswordEncoder.encode("pass"));
    user.setEnabled(true);
@@ -42,9 +42,9 @@ public class DemoApplication
       user.setPassword(bCryptPasswordEncoder.encode("pass"));
       user.setEnabled(true);
       user.setRole(Role.KITCHEN);
-      userRepository.save(user);*/
+      userRepository.save(user);
 
-   /* Item item = new Item();
+    Item item = new Item();
     item.setBusinessId(1);
     item.setName("Hamburger");
     item.setCategory("Food");
@@ -73,8 +73,9 @@ public class DemoApplication
     item.setStock(40);
     item.setScore(5);
 
-    itemRepository.save(item);*/
+    itemRepository.save(item);
 
+*/
 
 
   }

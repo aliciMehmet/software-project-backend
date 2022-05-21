@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,10 @@ public class OrderService {
     public List<Order> getReceipt(int businessId,int tableId){
 
         return orderMap.get(businessId).get(tableId);
+    }
+
+    public void resetTableOrders(int businessId,int tableId){
+        orderMap.get(businessId).put(tableId,new ArrayList<>());
     }
 
 }
