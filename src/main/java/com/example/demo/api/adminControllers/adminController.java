@@ -29,7 +29,7 @@ public class adminController
   @PostMapping("/addProduct")
   public void addProduct(HttpSession session, @RequestBody Item item)
   {
-    System.out.println("fkgjfg");
+    itemService.addItem(item);
   }
 
   @PostMapping("/updateItem")
@@ -51,5 +51,7 @@ public class adminController
 
     return new DataResult<>(itemService.mapByCategory.get(user.getBusinessId()));
   }
+
+
 
 }

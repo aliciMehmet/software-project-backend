@@ -40,6 +40,13 @@ public class ItemService extends ReloadModel
     return mapByCategory.get(businessId).get(category);
   }
 
+  public void addItem(Item item){
+    itemRepository.save(item);
+
+    cafeMap.get(item.getBusinessId()).add(item);
+    mapByCategory.get(item.getBusinessId()).get(item.getCategory()).add(item);
+  }
+
   public void updateItem(Item item){
     itemRepository.save(item);
 
