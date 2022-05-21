@@ -26,8 +26,8 @@ public class adminController
 
   @Autowired
   private AuthService authService;
-  @PostMapping("/addProduct")
-  public void addProduct(HttpSession session, @RequestBody Item item)
+  @PostMapping("/addItem")
+  public void addItem(@RequestBody Item item)
   {
     itemService.addItem(item);
   }
