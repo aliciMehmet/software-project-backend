@@ -21,7 +21,7 @@ public class BusinessService extends ReloadModel {
     private OrderService orderService;
 
     //boolean ---> isOccupied
-    Map<Integer,Map<Integer, Boolean>> tableMap;
+    public Map<Integer,Map<Integer, Boolean>> tableMap;
 
     @PostConstruct
     public void started()

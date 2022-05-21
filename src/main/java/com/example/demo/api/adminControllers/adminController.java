@@ -2,6 +2,7 @@ package com.example.demo.api.adminControllers;
 
 import com.example.demo.api.DataResult;
 import com.example.demo.components.AuthService;
+import com.example.demo.components.BusinessService;
 import com.example.demo.components.ItemService;
 import com.example.demo.entities.Item;
 import com.example.demo.components.TokenModel;
@@ -26,6 +27,10 @@ public class adminController
 
   @Autowired
   private AuthService authService;
+
+  @Autowired
+  private BusinessService businessService;
+
   @PostMapping("/addItem")
   public void addItem(@RequestBody Item item)
   {
@@ -50,6 +55,13 @@ public class adminController
     User user = authService.tokenUserMap.get(token);
 
     return new DataResult<>(itemService.mapByCategory.get(user.getBusinessId()));
+  }
+
+  @GetMapping("/getTablesStatus")
+  public DataResult<Map<Integer,Boolean>> getTablesStatus(@RequestParam String token){
+    User user = authService.tokenUserMap.get(token);
+    
+    return new DataResult<>(businessService.tableMap.get(user.getBusinessId()));
   }
 
 
