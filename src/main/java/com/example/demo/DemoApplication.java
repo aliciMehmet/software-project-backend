@@ -1,7 +1,9 @@
 package com.example.demo;
 
 import com.example.demo.entities.Item;
+import com.example.demo.entities.Table;
 import com.example.demo.repositories.ItemRepository;
+import com.example.demo.repositories.TableRepository;
 import com.example.demo.security.Role;
 import com.example.demo.security.User;
 import com.example.demo.security.UserRepository;
@@ -22,6 +24,8 @@ public class DemoApplication
     UserRepository userRepository = run.getBean(UserRepository.class);
 
     ItemRepository itemRepository = run.getBean(ItemRepository.class);
+
+    TableRepository tableRepository = run.getBean(TableRepository.class);
 
   /* User user = new User();
    user.setUsername("admin");
@@ -76,6 +80,33 @@ public class DemoApplication
     itemRepository.save(item);
 
 */
+
+    /*Table table = new Table();
+    table.setBusinessId(1);
+    table.setTableId(1);
+
+    tableRepository.save(table);
+
+     table = new Table();
+    table.setBusinessId(1);
+    table.setTableId(2);
+
+    tableRepository.save(table);
+
+    table = new Table();
+    table.setBusinessId(1);
+    table.setTableId(3);
+
+    tableRepository.save(table);
+
+    table = new Table();
+    table.setBusinessId(1);
+    table.setTableId(4);
+
+    tableRepository.save(table);*/
+
+
+
 
 
   }

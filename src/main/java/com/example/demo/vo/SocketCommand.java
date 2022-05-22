@@ -10,6 +10,8 @@ public class SocketCommand
 
   public static final String CLOSECAFE = "CLOSECAFE";
 
+  public static final String SEATTABLE = "SEATTABLE";
+
   public static final String MAKEORDER = "MAKEORDER";
 
   public static final String ORDERREADY = "ORDERREADY";

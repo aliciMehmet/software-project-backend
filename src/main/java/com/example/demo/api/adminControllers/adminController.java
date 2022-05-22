@@ -60,7 +60,7 @@ public class adminController
   @GetMapping("/getTablesStatus")
   public DataResult<Map<Integer,Boolean>> getTablesStatus(@RequestParam String token){
     User user = authService.tokenUserMap.get(token);
-    
+
     return new DataResult<>(businessService.tableMap.get(user.getBusinessId()));
   }
 

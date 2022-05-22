@@ -36,7 +36,7 @@ public class BusinessService extends ReloadModel {
             {
                 tableMap.put(table.getBusinessId(), new HashMap<>());
             }
-            tableMap.get(table.getBusinessId()).put(table.getTableId(),true);
+            tableMap.get(table.getBusinessId()).put(table.getTableId(),false);
         }
     }
 

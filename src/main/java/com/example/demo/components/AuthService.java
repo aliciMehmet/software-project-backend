@@ -1,7 +1,6 @@
 package com.example.demo.components;
 
 import com.example.demo.api.vo.LoginResponseVo;
-import com.example.demo.entities.Waiter;
 import com.example.demo.security.Role;
 import com.example.demo.security.User;
 import com.example.demo.security.UserRepository;

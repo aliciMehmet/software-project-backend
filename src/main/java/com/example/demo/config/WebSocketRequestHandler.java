@@ -1,11 +1,6 @@
 package com.example.demo.config;
 
-import com.example.demo.components.AuthService;
-import com.example.demo.components.KitchenService;
-import com.example.demo.components.SocketSessionService;
-import com.example.demo.components.WaiterService;
-import com.example.demo.entities.Kitchen;
-import com.example.demo.entities.Waiter;
+import com.example.demo.components.*;
 import com.example.demo.security.User;
 import com.example.demo.vo.SocketCommand;
 import com.example.demo.vo.SocketMessageVo;
@@ -31,6 +26,9 @@ public class WebSocketRequestHandler extends BinaryWebSocketHandler
   @Autowired
   private AuthService authService;
 
+  @Autowired
+  private BusinessService businessService;
+
   @Override
   public void afterConnectionEstablished(WebSocketSession session)
   {
@@ -52,9 +50,11 @@ public class WebSocketRequestHandler extends BinaryWebSocketHandler
     {
       User user = authService.tokenUserMap.get(socketMessageVo.getToken());
       waiterService.putSession(user.getId(), session);
-    }else if(socketMessageVo.getCommand().equals(SocketCommand.OPENKITCHEN)){
+    } else if(socketMessageVo.getCommand().equals(SocketCommand.OPENKITCHEN)){
       User user = authService.tokenUserMap.get(socketMessageVo.getToken());
       kitchenService.kitchenMap.put(user.getBusinessId(), session);
+    }else if(socketMessageVo.getCommand().equals(SocketCommand.SEATTABLE)){
+      businessService.tableMap.get(socketMessageVo.getCafeId()).put(socketMessageVo.getTableId(),true);
     }
 
     if (socketMessageVo.getCommand().equals(SocketCommand.OPENCAFE))
