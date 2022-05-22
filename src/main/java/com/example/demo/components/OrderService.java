@@ -43,7 +43,7 @@ public class OrderService {
         return orderMap.get(businessId).get(tableId);
     }
 
-    public void resetTableOrders(int businessId,int tableId){
+    public void completePayment(int businessId,int tableId){
         orderMap.get(businessId).put(tableId,new ArrayList<>());
     }
 
