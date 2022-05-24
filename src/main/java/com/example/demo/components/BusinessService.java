@@ -3,12 +3,15 @@ package com.example.demo.components;
 import com.example.demo.entities.Order;
 import com.example.demo.entities.Table;
 import com.example.demo.repositories.TableRepository;
+import com.example.demo.security.User;
+import com.example.demo.security.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -19,6 +22,9 @@ public class BusinessService extends ReloadModel {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     //boolean ---> isOccupied
     public Map<Integer,Map<Integer, Boolean>> tableMap;
@@ -55,7 +61,10 @@ public class BusinessService extends ReloadModel {
     }
 
     public void resetTable(int businessId,int tableId){
-        orderService.resetTableOrders(businessId,tableId);
-        tableMap.get(businessId).put(tableId,false);
+
+    }
+
+    public List<User> getEmployee(String role){
+        return userRepository.getByRole(role);
     }
 }

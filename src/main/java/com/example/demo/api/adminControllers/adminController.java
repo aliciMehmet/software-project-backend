@@ -1,11 +1,8 @@
 package com.example.demo.api.adminControllers;
 
 import com.example.demo.api.DataResult;
-import com.example.demo.components.AuthService;
-import com.example.demo.components.BusinessService;
-import com.example.demo.components.ItemService;
+import com.example.demo.components.*;
 import com.example.demo.entities.Item;
-import com.example.demo.components.TokenModel;
 import com.example.demo.security.User;
 import com.example.demo.security.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +27,9 @@ public class adminController
 
   @Autowired
   private BusinessService businessService;
+
+  @Autowired
+  private WaiterService waiterService;
 
   @PostMapping("/addItem")
   public void addItem(@RequestBody Item item)
@@ -62,6 +62,21 @@ public class adminController
     User user = authService.tokenUserMap.get(token);
 
     return new DataResult<>(businessService.tableMap.get(user.getBusinessId()));
+  }
+  @GetMapping("/getOnlineWaiters")
+  public DataResult<Map<Integer,Boolean>> getOnlineWaiters(@RequestParam String token)
+  {
+    User user = authService.tokenUserMap.get(token);
+
+    return new DataResult<>(waiterService.waiterMap.get(user.getBusinessId()));
+  }
+
+  @GetMapping("/getEmployee")
+  public DataResult<List<User>> getEmployee(@RequestParam String token,@RequestParam String role)
+  {
+    User user = authService.tokenUserMap.get(token);
+
+    return new DataResult<>(businessService.getEmployee(role));
   }
 
 
