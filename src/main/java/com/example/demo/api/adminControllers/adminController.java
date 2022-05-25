@@ -3,6 +3,7 @@ package com.example.demo.api.adminControllers;
 import com.example.demo.api.DataResult;
 import com.example.demo.components.*;
 import com.example.demo.entities.Item;
+import com.example.demo.entities.Order;
 import com.example.demo.security.User;
 import com.example.demo.security.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class adminController
 
   @Autowired
   private BusinessService businessService;
+
+  @Autowired
+  private OrderService orderService;
 
   @Autowired
   private WaiterService waiterService;
@@ -79,6 +83,12 @@ public class adminController
     return new DataResult<>(businessService.getEmployee(role));
   }
 
+  @GetMapping("/getAllOrders")
+  public DataResult<Map<Integer, List<Order>>> getAllOrders(@RequestParam String token)
+  {
+    User user = authService.tokenUserMap.get(token);
 
+    return new DataResult<>(orderService.orderMap.get(user.getBusinessId()));
+  }
 
 }
