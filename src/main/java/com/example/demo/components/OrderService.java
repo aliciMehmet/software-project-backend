@@ -2,6 +2,7 @@ package com.example.demo.components;
 
 import com.example.demo.entities.Item;
 import com.example.demo.entities.Order;
+import com.example.demo.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +18,10 @@ public class OrderService {
     @Autowired
     private ItemService itemService;
 
-    Map<Integer,Map<Integer, List<Order>>> orderMap = new HashMap<>();
+    private OrderRepository orderRepository;
 
-    //TODO: order'ı database'e kaydet
+    public Map<Integer,Map<Integer, List<Order>>> orderMap = new HashMap<>();
+
     public  void placeOrder(List<Integer> itemList,int businessId,int tableId){
 
         int totalPrice = 0;
@@ -34,6 +36,7 @@ public class OrderService {
         order.setItemIdList(itemList);
         order.setTableId(tableId);
         order.setTotalPrice(totalPrice);
+        orderRepository.save(order);
 
         orderMap.get(businessId).get(tableId).add(order);
     }
@@ -46,5 +49,8 @@ public class OrderService {
     public void completePayment(int businessId,int tableId){
         orderMap.get(businessId).put(tableId,new ArrayList<>());
     }
+
+
+
 
 }
