@@ -2,6 +2,7 @@ package com.example.demo.api;
 
 import com.example.demo.api.vo.MakeOrderRequest;
 import com.example.demo.components.KitchenService;
+import com.example.demo.components.OrderService;
 import com.example.demo.entities.Item;
 import com.example.demo.components.ItemService;
 import com.example.demo.repositories.ItemRepository;
@@ -26,6 +27,9 @@ public class CustomerController
 
   @Autowired
   private KitchenService kitchenService;
+
+  @Autowired
+  private OrderService orderService;
 
   @GetMapping("/getAllProducts")
   public DataResult<Map<String,List<Item>>> getAllProducts(@RequestParam int cafeId)
@@ -55,7 +59,18 @@ public class CustomerController
 
   @PostMapping("/makeOrder")
   public void makeOrder(@RequestBody MakeOrderRequest request) throws IOException {
-    kitchenService.sendNewOrderNotification(request.getBusinessId(),request.getItemName(),request.getCount());
+    
+    List<Item> items = itemService.getAllItems(request.getBusinessId());
+    String orderedItemName = null;
+
+    for (Item item : items) {
+      if(item.getId() == request.getItemId()){
+        orderedItemName = item.getName();
+      }
+    }
+
+    orderService.placeOrder(request.getItemId(),request.getBusinessId(),request.getTableId(),request.getCount());
+    kitchenService.sendNewOrderNotification(request.getBusinessId(),orderedItemName,request.getCount(),request.getTableId());
   }
 
 }

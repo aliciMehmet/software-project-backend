@@ -11,20 +11,25 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderId;
-
-    private Date orderDate;
+    private int id;
 
     private double totalPrice;
 
-    @ElementCollection
-    private List<Integer> itemIdList;
+    private int itemId;
+
+    @Transient
+    private String itemName;
+
+    private int count;
+
+    private int businessId;
 
     private int tableId;
 
+    @Transient
     private boolean isServed;
 }

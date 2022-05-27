@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class BusinessService extends ReloadModel {
@@ -42,7 +39,17 @@ public class BusinessService extends ReloadModel {
             {
                 tableMap.put(table.getBusinessId(), new HashMap<>());
             }
+
             tableMap.get(table.getBusinessId()).put(table.getTableId(),false);
+
+            if(!orderService.orderMap.containsKey(table.getBusinessId()))
+            {
+                orderService.orderMap.put(table.getBusinessId(),new HashMap<>());
+            }
+
+            if(!orderService.orderMap.get(table.getBusinessId()).containsKey(table.getId())){
+                orderService.orderMap.get(table.getBusinessId()).put(table.getId(),new ArrayList<>());
+            }
         }
     }
 

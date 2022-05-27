@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class MakeOrderRequest {
     private int businessId;
-    private String itemName;
+    private int tableId;
+    private int itemId;
     private int count;
 }

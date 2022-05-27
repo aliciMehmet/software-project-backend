@@ -6,36 +6,54 @@ import com.example.demo.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class OrderService {
     @Autowired
     private ItemService itemService;
 
+    @Autowired
     private OrderRepository orderRepository;
 
     public Map<Integer,Map<Integer, List<Order>>> orderMap = new HashMap<>();
 
-    public  void placeOrder(List<Integer> itemList,int businessId,int tableId){
+    @PostConstruct
+    public void started()
+    {
 
-        int totalPrice = 0;
-        for (Item item : itemService.getAllItems(businessId)) {
-            if(itemList.contains(item.getId())){
-                totalPrice += item.getPrice();
+    }
+
+    public  void placeOrder(int itemId,int businessId,int tableId,int count){
+
+        double totalPrice = 0;
+        String itemName = "";
+        List<Item> allItems = itemService.getAllItems(businessId);
+
+        for (Item item : allItems) {
+            if(item.getId() == itemId){
+                totalPrice = item.getPrice() * count;
+                itemName = item.getName();
+                break;
             }
         }
+
         Order order = new Order();
 
         order.setServed(false);
-        order.setItemIdList(itemList);
+        order.setItemId(itemId);
+        order.setCount(count);
+        order.setBusinessId(businessId);
         order.setTableId(tableId);
         order.setTotalPrice(totalPrice);
+        order.setItemName(itemName);
         orderRepository.save(order);
 
         orderMap.get(businessId).get(tableId).add(order);

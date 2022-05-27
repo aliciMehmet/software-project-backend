@@ -33,11 +33,12 @@ public class KitchenService {
 
     }
 
-    public void sendNewOrderNotification(int businessId,String itemName,int count) throws IOException {
+    public void sendNewOrderNotification(int businessId,String itemName,int count,int tableId) throws IOException {
         String str = "{\n" +
                 "  \"command\":\"NEWORDER\",\n" +
                 "  \"itemName\":\""+itemName+"\",\n" +
-                "  \"count\":"+count+"\n" +
+                "  \"count\":"+count+",\n" +
+                "  \"tableId\":"+tableId+"\n" +
                 "}";
         kitchenMap.get(businessId).sendMessage(new TextMessage(str));
     }

@@ -11,10 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/admin")
@@ -89,6 +87,20 @@ public class adminController
     User user = authService.tokenUserMap.get(token);
 
     return new DataResult<>(orderService.orderMap.get(user.getBusinessId()));
+  }
+
+  @GetMapping("/getWaitingOrders")
+  public DataResult< List<Order>> getWaitingOrders(@RequestParam String token){
+    User user = authService.tokenUserMap.get(token);
+    Map<Integer, List<Order>> allOrders = orderService.orderMap.get(user.getBusinessId());
+
+    List<Order> waitingOrders = new ArrayList<>();
+
+    for (Map.Entry<Integer, List<Order>> entry : allOrders.entrySet()) {
+      waitingOrders.addAll(entry.getValue().stream().filter(order -> !order.isServed()).collect(Collectors.toCollection(ArrayList::new)));
+    }
+
+    return new DataResult<>(waitingOrders);
   }
 
 }
