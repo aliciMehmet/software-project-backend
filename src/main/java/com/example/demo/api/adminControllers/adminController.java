@@ -103,4 +103,17 @@ public class adminController
     return new DataResult<>(waitingOrders);
   }
 
+  @PostMapping("/addUser")
+  public void addUser(@RequestBody User user)
+  {
+    authService.addUser(user);
+  }
+
+
+  @PostMapping("/deleteUser")
+  public void deleteUser(@RequestBody User user)
+  {
+    authService.deleteUser(user);
+  }
+
 }

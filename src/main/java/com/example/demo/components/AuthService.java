@@ -1,6 +1,7 @@
 package com.example.demo.components;
 
 import com.example.demo.api.vo.LoginResponseVo;
+import com.example.demo.entities.Item;
 import com.example.demo.security.Role;
 import com.example.demo.security.User;
 import com.example.demo.security.UserRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -57,4 +59,12 @@ public class AuthService {
     public void logout(String token){
 
     }
+
+    public void addUser(User user){
+        userRepository.save(user);
+    }
+    public void deleteUser(User user){
+        userRepository.delete(user);
+    }
+
 }
