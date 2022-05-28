@@ -1,6 +1,7 @@
 package com.example.demo.api.adminControllers;
 
 import com.example.demo.api.DataResult;
+import com.example.demo.api.vo.TableStatus;
 import com.example.demo.components.*;
 import com.example.demo.entities.Item;
 import com.example.demo.entities.Order;
@@ -60,10 +61,17 @@ public class adminController
   }
 
   @GetMapping("/getTablesStatus")
-  public DataResult<Map<Integer,Boolean>> getTablesStatus(@RequestParam String token){
+  public DataResult<List<TableStatus>> getTablesStatus(@RequestParam String token){
     User user = authService.tokenUserMap.get(token);
 
-    return new DataResult<>(businessService.tableMap.get(user.getBusinessId()));
+    List<TableStatus> tableStatuses = new ArrayList<>();
+
+    Map<Integer, Boolean> tables = businessService.tableMap.get(user.getBusinessId());
+    for (Map.Entry<Integer, Boolean> entry : tables.entrySet()) {
+      tableStatuses.add(new TableStatus(entry.getKey(), entry.getValue()));
+    }
+
+    return new DataResult<>(tableStatuses);
   }
   @GetMapping("/getOnlineWaiters")
   public DataResult<Map<Integer,Boolean>> getOnlineWaiters(@RequestParam String token)
