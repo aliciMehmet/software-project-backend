@@ -34,12 +34,7 @@ public class DemoApplication
    user.setRole(Role.ADMIN);
    userRepository.save(user);
 
-       user = new User();
-      user.setUsername("waiter");
-      user.setPassword(bCryptPasswordEncoder.encode("pass"));
-      user.setEnabled(true);
-      user.setRole(Role.WAITER);
-      userRepository.save(user);
+
 
        user = new User();
       user.setUsername("kitchen");

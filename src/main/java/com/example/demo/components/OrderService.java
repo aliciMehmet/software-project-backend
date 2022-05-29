@@ -68,7 +68,10 @@ public class OrderService {
         orderMap.get(businessId).put(tableId,new ArrayList<>());
     }
 
+    public List<Order> getAllByBusinessId(int businessId){
+        return orderRepository.getAllByBusinessId(businessId);
 
+    }
 
 
 }

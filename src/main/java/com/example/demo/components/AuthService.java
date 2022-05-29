@@ -67,4 +67,11 @@ public class AuthService {
         userRepository.delete(user);
     }
 
+    public User getUserById(int id){
+
+        return userRepository.getUserById(id);
+    }
+
 }
+
+

@@ -1,6 +1,7 @@
 package com.example.demo.api.adminControllers;
 
 import com.example.demo.api.DataResult;
+import com.example.demo.api.vo.TableStatus;
 import com.example.demo.components.*;
 import com.example.demo.entities.Item;
 import com.example.demo.entities.Order;
@@ -59,12 +60,7 @@ public class adminController
     return new DataResult<>(itemService.mapByCategory.get(user.getBusinessId()));
   }
 
-  @GetMapping("/getTablesStatus")
-  public DataResult<Map<Integer,Boolean>> getTablesStatus(@RequestParam String token){
-    User user = authService.tokenUserMap.get(token);
 
-    return new DataResult<>(businessService.tableMap.get(user.getBusinessId()));
-  }
   @GetMapping("/getOnlineWaiters")
   public DataResult<Map<Integer,Boolean>> getOnlineWaiters(@RequestParam String token)
   {
@@ -82,11 +78,11 @@ public class adminController
   }
 
   @GetMapping("/getAllOrders")
-  public DataResult<Map<Integer, List<Order>>> getAllOrders(@RequestParam String token)
+  public DataResult<List<Order>> getAllOrders(@RequestParam String token)
   {
     User user = authService.tokenUserMap.get(token);
 
-    return new DataResult<>(orderService.orderMap.get(user.getBusinessId()));
+    return new DataResult<>(orderService.getAllByBusinessId(user.getBusinessId()));
   }
 
   @GetMapping("/getWaitingOrders")
@@ -116,4 +112,23 @@ public class adminController
     authService.deleteUser(user);
   }
 
+  @GetMapping("/getUserById")
+  public DataResult<User> getUserById(@RequestParam int id)
+  {
+
+    return new DataResult<>(authService.getUserById(id));
+  }
+
+  @GetMapping("/getTablesStatus")
+  public DataResult<List<TableStatus>> getTablesStatus(@RequestParam String token){
+    User user = authService.tokenUserMap.get(token);
+
+    List<TableStatus> tableStatuses = new ArrayList<>();
+
+    Map<Integer, Boolean> tables = businessService.tableMap.get(user.getBusinessId());
+    for (Map.Entry<Integer, Boolean> entry : tables.entrySet()) {
+      tableStatuses.add(new TableStatus(entry.getKey(), entry.getValue()));
+    }
+    return new DataResult<>(tableStatuses);
+  }
 }

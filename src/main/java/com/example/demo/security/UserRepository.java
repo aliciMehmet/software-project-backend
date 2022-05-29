@@ -10,4 +10,8 @@ public interface UserRepository extends CrudRepository<User, Long>
   public User getUserByUsername(@Param("username") String username);
 
   public List<User> getByRole(String role);
+
+  public User getUserById(int id);
+
 }
+
