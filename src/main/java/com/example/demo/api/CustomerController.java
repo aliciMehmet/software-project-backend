@@ -5,7 +5,9 @@ import com.example.demo.components.KitchenService;
 import com.example.demo.components.OrderService;
 import com.example.demo.entities.Item;
 import com.example.demo.components.ItemService;
+import com.example.demo.entities.Order;
 import com.example.demo.repositories.ItemRepository;
+import com.example.demo.security.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,5 +74,13 @@ public class CustomerController
     orderService.placeOrder(request.getItemId(),request.getBusinessId(),request.getTableId(),request.getCount());
     kitchenService.sendNewOrderNotification(request.getBusinessId(),orderedItemName,request.getCount(),request.getTableId());
   }
+
+  @GetMapping("/getReceipt")
+  public DataResult<List<Order>> getReceipt(@RequestParam int businessId, @RequestParam int tableId)
+  {
+
+    return new DataResult<>(orderService.getReceipt(businessId,tableId));
+  }
+
 
 }
