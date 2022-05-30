@@ -1,7 +1,6 @@
 package com.example.demo.components;
 
-import com.example.demo.api.vo.OrderReadyNotificationVo;
-import com.example.demo.vo.SocketMessageVo;
+import com.example.demo.api.vo.WaiterNotificationVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,7 +27,8 @@ public class KitchenService {
             for (Map.Entry<Integer, Boolean> pair : waiters.entrySet()) {
                 //If waiter is available
                 if(pair.getValue()){
-                    OrderReadyNotificationVo notificationVo = new OrderReadyNotificationVo();
+                    WaiterNotificationVo notificationVo = new WaiterNotificationVo();
+                    notificationVo.setCommand("ORDERREADY");
                     notificationVo.setTableId(tableId);
                     ObjectMapper objectMapper = new ObjectMapper();
                     String notificationMessage = objectMapper.writeValueAsString(notificationVo);

@@ -1,10 +1,8 @@
 package com.example.demo.api;
 
 import com.example.demo.api.vo.MakeOrderRequest;
-import com.example.demo.components.KitchenService;
-import com.example.demo.components.OrderService;
+import com.example.demo.components.*;
 import com.example.demo.entities.Item;
-import com.example.demo.components.ItemService;
 import com.example.demo.entities.Order;
 import com.example.demo.repositories.ItemRepository;
 import com.example.demo.security.User;
@@ -32,6 +30,12 @@ public class CustomerController
 
   @Autowired
   private OrderService orderService;
+
+  @Autowired
+  private WaiterService waiterService;
+
+  @Autowired
+  private TableService tableService;
 
   @GetMapping("/getAllProducts")
   public DataResult<Map<String,List<Item>>> getAllProducts(@RequestParam int cafeId)
@@ -81,6 +85,10 @@ public class CustomerController
   {
 
     return new DataResult<>(orderService.getReceipt(businessId,tableId));
+  }
+
+  public void callWaiter(@RequestParam int businessId, @RequestParam int tableId) throws IOException {
+    tableService.callWaiter(businessId,tableId);
   }
 
 

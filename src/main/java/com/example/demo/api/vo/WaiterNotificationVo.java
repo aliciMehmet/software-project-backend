@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class OrderReadyNotificationVo {
+public class WaiterNotificationVo {
+    private String command;
     private int tableId;
 }

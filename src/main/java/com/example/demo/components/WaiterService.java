@@ -14,7 +14,7 @@ import java.util.Map;
 public class WaiterService extends ReloadModel {
     public Map<Integer,Map<Integer,Boolean>> waiterMap = new HashMap<>();
 
-    Map<Integer, WebSocketSession> socketSessionMap = new HashMap<>();
+    public Map<Integer, WebSocketSession> socketSessionMap = new HashMap<>();
 
     @Autowired
     private UserRepository userRepository;
