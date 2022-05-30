@@ -1,5 +1,6 @@
 package com.example.demo.components;
 
+import com.example.demo.api.vo.OrderReadyNotificationVo;
 import com.example.demo.vo.SocketMessageVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,13 @@ public class KitchenService {
 
         if(waiters != null){
             for (Map.Entry<Integer, Boolean> pair : waiters.entrySet()) {
+                //If waiter is available
                 if(pair.getValue()){
-                    waiterService.socketSessionMap.get(pair.getKey()).sendMessage(new TextMessage("hello coni"));
+                    OrderReadyNotificationVo notificationVo = new OrderReadyNotificationVo();
+                    notificationVo.setTableId(tableId);
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String notificationMessage = objectMapper.writeValueAsString(notificationVo);
+                    waiterService.socketSessionMap.get(pair.getKey()).sendMessage(new TextMessage(notificationMessage));
                 }//new TextMessage("dsfdsf")
             }
         }

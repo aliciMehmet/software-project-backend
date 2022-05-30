@@ -68,6 +68,7 @@ public class CustomerController
     for (Item item : items) {
       if(item.getId() == request.getItemId()){
         orderedItemName = item.getName();
+        break;
       }
     }
 
