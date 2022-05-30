@@ -46,6 +46,8 @@ public class KitchenService {
                 "  \"count\":"+count+",\n" +
                 "  \"tableId\":"+tableId+"\n" +
                 "}";
-        kitchenMap.get(businessId).sendMessage(new TextMessage(str));
+        if(kitchenMap.get(businessId) != null){
+            kitchenMap.get(businessId).sendMessage(new TextMessage(str));
+        }
     }
 }
