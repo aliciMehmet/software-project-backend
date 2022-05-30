@@ -68,7 +68,8 @@ public class WebSocketRequestHandler extends BinaryWebSocketHandler
       socketSessionService.getCafeById(socketMessageVo.getCafeId()).sendMessage(new TextMessage("tableId:"+socketMessageVo.getTableId()));
 
     }else if(socketMessageVo.getCommand().equals(SocketCommand.ORDERREADY)){
-      kitchenService.sendReadyNotification(socketMessageVo.getCafeId(), socketMessageVo.getTableId());
+      User user = authService.tokenUserMap.get(socketMessageVo.getToken());
+      kitchenService.sendReadyNotification(user.getBusinessId(), socketMessageVo.getTableId());
     }
   }
 
