@@ -86,10 +86,9 @@ public class CustomerController
 
     return new DataResult<>(orderService.getReceipt(businessId,tableId));
   }
-
+  @PostMapping("/callWaiter")
   public void callWaiter(@RequestParam int businessId, @RequestParam int tableId) throws IOException {
     tableService.callWaiter(businessId,tableId);
   }
-
 
 }
