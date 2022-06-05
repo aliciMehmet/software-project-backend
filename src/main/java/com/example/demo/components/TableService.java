@@ -17,18 +17,20 @@ public class TableService {
 
     public void callWaiter(int businessId, int tableId) throws IOException {
         Map<Integer, Boolean> waiters = waiterService.waiterMap.get(businessId);
+        if(waiters != null){
+            for (Map.Entry<Integer, Boolean> entry : waiters.entrySet()) {
+                if(entry.getValue()){
+                    WaiterNotificationVo notificationVo = new WaiterNotificationVo();
+                    notificationVo.setCommand("CALL");
+                    notificationVo.setTableId(tableId);
 
-        for (Map.Entry<Integer, Boolean> entry : waiters.entrySet()) {
-            if(entry.getValue()){
-                WaiterNotificationVo notificationVo = new WaiterNotificationVo();
-                notificationVo.setCommand("CALL");
-                notificationVo.setTableId(tableId);
-
-                ObjectMapper objectMapper = new ObjectMapper();
-                String str = objectMapper.writeValueAsString(notificationVo);
-                waiterService.socketSessionMap.get(entry.getKey()).sendMessage(new TextMessage(str));
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String str = objectMapper.writeValueAsString(notificationVo);
+                    waiterService.socketSessionMap.get(entry.getKey()).sendMessage(new TextMessage(str));
+                }
             }
         }
+
     }
 
     public void giveScore(int itemId, double score){
