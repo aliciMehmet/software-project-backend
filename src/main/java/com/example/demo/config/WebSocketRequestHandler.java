@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 import com.example.demo.components.*;
+import com.example.demo.entities.Order;
 import com.example.demo.security.User;
 import com.example.demo.vo.SocketCommand;
 import com.example.demo.vo.SocketMessageVo;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.BinaryWebSocketHandler;
+
+import java.util.List;
 
 public class WebSocketRequestHandler extends BinaryWebSocketHandler
 {
@@ -19,6 +22,9 @@ public class WebSocketRequestHandler extends BinaryWebSocketHandler
 
   @Autowired
   private KitchenService kitchenService;
+
+  @Autowired
+  private OrderService orderService;
 
   @Autowired
   private WaiterService waiterService;
@@ -70,6 +76,19 @@ public class WebSocketRequestHandler extends BinaryWebSocketHandler
     }else if(socketMessageVo.getCommand().equals(SocketCommand.ORDERREADY)){
       User user = authService.tokenUserMap.get(socketMessageVo.getToken());
       kitchenService.sendReadyNotification(user.getBusinessId(), socketMessageVo.getTableId());
+
+      int orderId = socketMessageVo.getOrderId();
+
+      List<Order> orders = orderService.orderMap.get(user.getBusinessId()).get(socketMessageVo.getTableId());
+
+      for (Order order : orders) {
+        if(order.getId() == orderId){
+          order.setServed(true);
+          break;
+        }
+      }
+
+
     }
   }
 

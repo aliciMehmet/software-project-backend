@@ -1,6 +1,5 @@
 package com.example.demo.components;
 
-import com.example.demo.entities.Order;
 import com.example.demo.entities.Table;
 import com.example.demo.repositories.TableRepository;
 import com.example.demo.security.User;

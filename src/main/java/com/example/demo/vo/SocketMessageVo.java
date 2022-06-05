@@ -22,6 +22,8 @@ public class SocketMessageVo
 
   private int tableId;
 
+  private int orderId;
+
 
   public static SocketMessageVo parse(TextMessage message) throws IOException
   {
