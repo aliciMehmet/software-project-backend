@@ -63,8 +63,8 @@ public class AuthService {
     public void addUser(User user){
         userRepository.save(user);
     }
-    public void deleteUser(int  userId){
-        userRepository.deleteUserById(userId);
+    public void deleteUser(User  user){
+        userRepository.delete(user);
     }
 
     public User getUserById(int id){
