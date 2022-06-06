@@ -131,4 +131,17 @@ public class adminController
     }
     return new DataResult<>(tableStatuses);
   }
+
+  @GetMapping("/getReceipt")
+  public DataResult<List<Order>> getReceipt(@RequestParam String token,@RequestParam int tableId){
+    User user = authService.tokenUserMap.get(token);
+
+    return new DataResult<>(orderService.getReceipt(user.getBusinessId(),tableId));
+  }
+  @GetMapping("/completePayment")
+  public void completePayment(@RequestParam String token,@RequestParam int tableId){
+    User user = authService.tokenUserMap.get(token);
+
+    orderService.completePayment(user.getBusinessId(),tableId);
+  }
 }
