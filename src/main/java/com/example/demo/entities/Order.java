@@ -21,7 +21,6 @@ public class Order {
 
     private int itemId;
 
-    @Transient
     private String itemName;
 
     private int count;
@@ -30,6 +29,5 @@ public class Order {
 
     private int tableId;
 
-    @Transient
     private boolean isServed;
 }
