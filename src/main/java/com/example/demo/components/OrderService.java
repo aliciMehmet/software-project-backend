@@ -39,6 +39,7 @@ public class OrderService {
 
         for (Item item : allItems) {
             if(item.getId() == itemId){
+                item.setStock(item.getStock() - count);
                 totalPrice = item.getPrice() * count;
                 itemName = item.getName();
                 break;

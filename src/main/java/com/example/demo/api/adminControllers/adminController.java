@@ -143,5 +143,6 @@ public class adminController
     User user = authService.tokenUserMap.get(token);
 
     orderService.completePayment(user.getBusinessId(),tableId);
+    businessService.resetTable(user.getBusinessId(),tableId);
   }
 }
