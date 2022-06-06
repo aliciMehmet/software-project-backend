@@ -13,5 +13,7 @@ public interface UserRepository extends CrudRepository<User, Long>
 
   public User getUserById(int id);
 
+  public void deleteUserById(int id);
+
 }
 

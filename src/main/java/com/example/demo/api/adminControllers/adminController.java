@@ -107,9 +107,9 @@ public class adminController
 
 
   @PostMapping("/deleteUser")
-  public void deleteUser(@RequestBody User user)
+  public void deleteUser(@RequestParam int userId)
   {
-    authService.deleteUser(user);
+    authService.deleteUser(userId);
   }
 
   @GetMapping("/getUserById")
