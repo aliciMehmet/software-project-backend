@@ -1,6 +1,7 @@
 package com.example.demo.api.adminControllers;
 
 import com.example.demo.api.DataResult;
+import com.example.demo.api.vo.AddUserRequestVo;
 import com.example.demo.api.vo.TableStatus;
 import com.example.demo.components.*;
 import com.example.demo.entities.Item;
@@ -100,9 +101,10 @@ public class adminController
   }
 
   @PostMapping("/addUser")
-  public void addUser(@RequestBody User user)
+  public void addUser(@RequestBody AddUserRequestVo request)
   {
-    authService.addUser(user);
+    User user = authService.tokenUserMap.get(request.getToken());
+    authService.addUser(request,user.getBusinessId());
   }
 
 

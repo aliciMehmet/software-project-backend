@@ -1,5 +1,6 @@
 package com.example.demo.components;
 
+import com.example.demo.api.vo.AddUserRequestVo;
 import com.example.demo.api.vo.LoginResponseVo;
 import com.example.demo.entities.Item;
 import com.example.demo.security.Role;
@@ -60,8 +61,13 @@ public class AuthService {
 
     }
 
-    public void addUser(User user){
-        userRepository.save(user);
+    public void addUser(AddUserRequestVo request,int businessId){
+        User newUser = new User();
+        newUser.setUsername(request.getUsername());
+        newUser.setPassword(passwordEncoder.encode(request.getPassword()));
+        newUser.setBusinessId(businessId);
+        newUser.setRole(request.getRole());
+        userRepository.save(newUser);
     }
     public void deleteUser(User  user){
         userRepository.delete(user);
