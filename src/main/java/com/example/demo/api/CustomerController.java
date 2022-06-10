@@ -46,6 +46,9 @@ public class CustomerController
 
     for (Item item : allItems)
     {
+      if(item.getStock() <= 0 ){
+        continue;
+      }
       if(!map.containsKey(item.getCategory())){
         map.put(item.getCategory(),new ArrayList<>());
       }

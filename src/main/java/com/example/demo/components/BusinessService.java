@@ -67,7 +67,7 @@ public class BusinessService extends ReloadModel {
     }
 
     public void resetTable(int businessId,int tableId){
-
+        tableMap.get(businessId).put(tableId,false);
     }
 
     public List<User> getEmployee(String role){
